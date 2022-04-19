@@ -1,0 +1,15 @@
+sem arrive = 1, go = 0
+int count = 0
+
+P(arrive)
+count = count + 1 
+if count < n then
+  V(arrive); P(go);
+fi
+count = count -1
+if count > 0 then
+  V(go)
+else
+  V(arrive)
+fi
+  

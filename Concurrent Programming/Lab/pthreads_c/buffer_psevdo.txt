@@ -1,0 +1,27 @@
+int n = 5;
+double[n] buf;
+int front = 0, rear = 0, count = 0;
+cond nfull, nempty;
+
+monitor Buffer {
+	
+   void deposit(double x) {
+      while (count == n)
+         wait(nfull);
+      buf[rear] = x;
+      rear = (rear + 1) % n;
+      count++;
+      signalAll(nempty);
+   }
+	
+   double fetch() {
+      while (count == 0)
+         wait(nempty);
+      double x = buf[front];
+      front = (front + 1) % n;
+      count--;
+      signalAll(nfull);
+      return x;
+   }
+
+}
